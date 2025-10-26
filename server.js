@@ -3,6 +3,8 @@ import cors  from 'cors';
 const app =express();
 import mongoose, { Mongoose } from 'mongoose';
 import router from './route.js';
+import dotenv from "dotenv";
+dotenv.config();
 
 const port=3001;
 const host='localhost';
@@ -10,7 +12,7 @@ const host='localhost';
 app.use(cors());
 app.use(express.json());
 
-const uri='mongodb+srv://sujithap:psrvlog@cluster0.yh2vhor.mongodb.net/?appName=Cluster0';
+const uri=process.env.MONGO_URI;
 
 const connect = async()=>{
         try {
@@ -24,7 +26,7 @@ const connect = async()=>{
 
 connect();
 
-const srever =app.listen(port,host,()=>{
+const srever =app.listen(process.env.PORT || 3001,host,()=>{
         console.log(`Node server is listening to ${srever.address().port} `)
 });
 
